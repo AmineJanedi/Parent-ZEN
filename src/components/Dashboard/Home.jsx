@@ -10,46 +10,46 @@ function Home() {
 
     const data = [
         {
-          name: 'Page A',
-          uv: 4000,
-          pv: 2400,
-          amt: 2400,
+          name: '2024',
+          uv: 5,
+          pv: 15,
+          amt: 50,
         },
         {
-          name: 'Page B',
-          uv: 3000,
-          pv: 1398,
-          amt: 2210,
+          name: '2025',
+          uv: 1,
+          pv: 25,
+          amt: 50,
         },
         {
-          name: 'Page C',
-          uv: 2000,
-          pv: 9800,
-          amt: 2290,
+          name: '2026',
+          uv: 3 ,
+          pv: 30,
+          amt: 50,
         },
         {
-          name: 'Page D',
-          uv: 2780,
-          pv: 3908,
-          amt: 2000,
+          name: '2027',
+          uv: 25,
+          pv: 10,
+          amt: 50,
         },
         {
-          name: 'Page E',
-          uv: 1890,
-          pv: 4800,
-          amt: 2181,
+          name: '2028',
+          uv: 25,
+          pv: 35,
+          amt: 50,
         },
         {
-          name: 'Page F',
-          uv: 2390,
-          pv: 3800,
-          amt: 2500,
+          name: '2029',
+          uv: 27,
+          pv: 36,
+          amt: 50,
         },
         {
-          name: 'Page G',
-          uv: 3490,
-          pv: 4300,
-          amt: 2100,
+          name: '2030',
+          uv: 5,
+          pv: 10,
+          amt: 50,
         },
       ];
      
@@ -57,41 +57,74 @@ function Home() {
   return (
     <main className='main-container'>
         <div className='main-title'>
-            <h3>DASHBOARD</h3>
+            <h2>DASHBOARD</h2>
         </div>
 
         <div className='main-cards'>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>PRODUCTS</h3>
-                    <BsFillArchiveFill className='card_icon'/>
+                    <i className='fa-solid fa-cart-shopping'style={{ fontSize: '36px' }}></i>
                 </div>
                 <h1>300</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>ALLERGIES</h3>
-                    <BsFillGrid3X3GapFill className='card_icon'/>
-                </div>
+                    <i className="fa-solid fa-hospital-user"style={{ fontSize: '36px' }} > </i>         
+                      </div>
                 <h1>12</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
                     <h3>COMMANDES</h3>
-                    <BsPeopleFill className='card_icon'/>
+                    <i class="fa-solid fa-truck-arrow-right" style={{ fontSize: '36px' }}> </i>         
                 </div>
                 <h1>33</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>SOLDE</h3>
-                    <BsFillBellFill className='card_icon'/>
-                </div>
-                <h1>42</h1>
+                    <h3>REVENUE</h3>
+                    <i class="fa-solid fa-sack-dollar" style={{ fontSize: '36px' }}></i>    
+                                </div>
+                <h1>1,100 DT</h1>
+                
             </div>
+            <div className='main-title'>
+            <h2>STATISTIQUES</h2>
+        </div>
+    <div className='stats'>
+            <div className='card1'>
+                <div className='card-inner'>
+                    <h3>BUVETTES</h3>
+                    <i class="fa-solid fa-store" style={{ fontSize: '36px' }}></i>
+                </div>
+                <h1>7</h1>
+                
+            </div>
+            </div>
+            <div className='stats'>
+            <div className='card1'>
+                <div className='card-inner'>
+                    <h3> PARENTS</h3>
+                    <i class="fa-solid fa-users" style={{ fontSize: '36px' }}></i>
+                </div>
+                <h1>10</h1>
+                </div>
+            </div>
+            <div className='stats'>
+            <div className='card1'>
+                <div className='card-inner'>
+                    <h3>BRACELET VENDU</h3>
+                    <i class="fa-solid fa-circle-check"style={{ fontSize: '36px' }}></i>
+                </div>
+                <h1>10</h1>
+                </div>
+            </div>
+            
         </div>
       
-       {/* <div className='charts'>
+        <div className='charts'>
             <ResponsiveContainer width="100%" height="100%">
             <BarChart
             width={500}
@@ -136,7 +169,7 @@ function Home() {
                 </LineChart>
             </ResponsiveContainer>
 
-            </div> */}
+            </div> 
     </main>
   )
 }
