@@ -420,3 +420,8 @@ button {
 
 
 }
+/*Liste d'allérgie */ 
+.ListeAllérgies{
+  background-color: #0a2829;
+  color: black;
+}

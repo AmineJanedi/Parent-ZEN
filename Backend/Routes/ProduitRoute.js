@@ -1,35 +1,23 @@
 const express=require('express');
 const router=express.Router();
 const Produits=require('../Models/Produits');
-//Ajouter Produit *********************************************************************
-router.post('/AjouterProduit',(req,res)=>{
-    data=req.body;
-    Prod=new Produits(data);
-    Prod.save()
-    .then(
-        (savedProduit)=>{
-            res.status(200).send(savedProduit)
-        }
-    )
-    .catch ( 
-        (err)=>{
-            res.status(400).send(err)
-        }
-    )
-})
-//Ajouter Produit Avec une autre facon 'Await'***********************************************************************
-router.post('/AjouterProduit2',async (req,res)=>{
-    try {
-        data=req.body;
-        Prod=new Produits(data);
-        savedProduit=await Prod.save();
-        res.status(200).send(savedProduit)
+let nombreProduits = 0; // Nombre initial de produits
 
-    } catch {
-        (err)=>{
-        res.status(400).send(err)
-    }}
+//Ajouter Produit Avec une autre facon 'Await'***********************************************************************
+router.post('/AjouterProduit',async (req,res)=>{
+    console.log(req.body)
+    try {
+        const savedProduit = await Produits.create(req.body)
+        res.status(200).json(savedProduit)
+        nombreProduits++;
+    } catch(err) {
+        console.log(err);
+    }
 })
+//getNombre produits*************************************************************************************************
+router.get('/nombreProduits', (req, res) => {
+    res.status(200).json({ nombreProduits });
+});
 //Afficher tout les Produits *********************************************************************
 router.get('/GetAllProduits',(req,res)=>{
 Produits.find()
@@ -52,7 +40,8 @@ router.get('/GetProduitByNom/:NomProduit', (req, res) => {
         })
         .catch (
             (err)=>{
-            res.status(400).send(err)
+            res.status(404).send(err)
+            
         });
 });
 //Chercher Produit Par ID***************************************************************************

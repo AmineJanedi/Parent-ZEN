@@ -17,7 +17,7 @@ const Produits = mongoose.model('Produits',{
         type:Number
     },
     Allérgenes :{
-        type:String
+        type:Array
     }
 })
 module.exports=Produits;

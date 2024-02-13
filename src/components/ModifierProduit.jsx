@@ -1,27 +1,35 @@
-import { Link } from "react-router-dom";
+import axios from 'axios';
 import React, { useState } from 'react';
+import Select from "react-dropdown-select";
 
 const ModifierProduit = () => {
+  
   const [ID, setID] = useState('');
   const [CodeABarre, setCodeABarre] = useState('');
   const [NomProduit, setNomProduit] = useState('');
-  const [Ingredient, setIngredient] = useState('');
+  const [Ingredients, setIngredient] = useState('');
   const [Prix, setPrix] = useState('');
   const [Allérgenes, setAllérgenes] = useState('');
+  const ListeAllérgies=[
+    {Name:"Gluten"},
+    {Name:"Fraise"},
+    {Name:"Chocolat"},
+   ]
 
-  const handleSubmit =  (e) => {
+  const ModifierProduit =async  (e) => {
     e.preventDefault();
     try {
-      const response = axios.post('http://localhost:4000//ModifierProduit/:ID', {
+      const response = await axios.put(`http://localhost:4000/Produit/ModifierProduit/${ID}`, {
           ID:ID,
           CodeABarre:CodeABarre,
           NomProduit:NomProduit,
-          Ingredient:Ingredient,
+          Ingredients:Ingredients,
           Prix:Prix,
           Allérgenes:Allérgenes
       });
-      console.log('Produit Modifié :', response.data);
-      // Réinitialiser les champs après l'ajout
+      console.log('Produit Modifié :', response);
+      alert('Produit Modifié avec succés !')
+      // Réinitialiser les champs après la modification
       setID('');
       setCodeABarre('');
       setNomProduit('');
@@ -29,7 +37,7 @@ const ModifierProduit = () => {
       setPrix('');
       setAllérgenes('');
   } catch (error) {
-      console.error('Erreur lors de l\'ajout du produit :', error);
+      console.error('Erreur lors de Modification du produit :', error);
   }
  
   };
@@ -62,7 +70,7 @@ const ModifierProduit = () => {
                 <div className="Lien">
               Voir OpenFoodFacts</div>
                </a>
-              <textarea id="Ingredient" required="" value={Ingredient} onChange={(e) => setIngredient(e.target.value)} />
+              <textarea id="Ingredient" required="" value={Ingredients} onChange={(e) => setIngredient(e.target.value)} />
             </div>
             <div>
               <label htmlFor="Prix">Prix :</label>
@@ -75,18 +83,21 @@ const ModifierProduit = () => {
                 <div className="Lien">
              Ajouter une allergie</div>
                </a>
-              <select id="Allérgenes" value={Allérgenes} onChange={(e) => setAllérgenes(e.target.value)}>
-                <option value="">Sélectionnez un allergène</option>
-                <option value="Gluten">Gluten</option>
-                <option value="Fraise">Fraise</option>
-                <option value="Poisson">Poisson</option>
-                <option value="Viande">Viande</option>
-                <option value="Sésame">Sésame</option>
-                <option value="Lait">Lait</option>
-                <option value="Aucun">Aucun</option>
-              </select>
+               <Select
+              className='ListeAllérgies'
+               name={Select} 
+               options={ListeAllérgies} 
+               labelField='Name' 
+               valueField="Name"
+                multi
+                onChange={Allérgenes=>setAllérgenes}
+                color='#0b3257'
+                searchable="true"
+                >
+               
+              </Select>
             </div>
-            <button style={{ fontSize: '25px' }} type="submit" onClick={''}>Modifier <i class="fa-solid fa-gear"></i></button>
+            <button style={{ fontSize: '25px' }} onClick={ModifierProduit}>Modifier <i class="fa-solid fa-gear"></i></button>
           </form>
         </div>
       </div>

@@ -1,11 +1,8 @@
-import React from 'react'
-import 
-{ BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill}
- from 'react-icons/bs'
  import 
  { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } 
  from 'recharts';
-
+ import axios from 'axios';
+ import React, { useState, useEffect } from 'react';
 function Home() {
 
     const data = [
@@ -52,7 +49,16 @@ function Home() {
           amt: 50,
         },
       ];
-     
+        const [nombreProduits, setNombreProduits] = useState(0);
+        useEffect(() => {
+          axios.get('http://localhost:4000/nombreProduits')
+            .then(response => {
+              setNombreProduits(response.data.nombreProduits);
+            })
+            .catch(error => {
+              console.error('Erreur lors de la récupération du nombre de produits :', error);
+            });
+        }, []);
 
   return (
     <main className='main-container'>
@@ -66,7 +72,7 @@ function Home() {
                     <h3>PRODUCTS</h3>
                     <i className='fa-solid fa-cart-shopping'style={{ fontSize: '36px' }}></i>
                 </div>
-                <h1>300</h1>
+                <h1>{nombreProduits}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
