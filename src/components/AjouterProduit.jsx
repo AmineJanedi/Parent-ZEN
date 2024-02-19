@@ -12,7 +12,7 @@ const AjouterProduit = () => {
     const AjouterProduit =async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:4000/Produit/AjouterProduit', {
+        const response = await axios.post('http://localhost:4001/Produit/AjouterProduit', {
             ID:ID,
             CodeABarre:CodeABarre,
             NomProduit:NomProduit,

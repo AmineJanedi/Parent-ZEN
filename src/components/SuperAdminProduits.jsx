@@ -9,7 +9,7 @@ const SuperAdminProduits = () => {
   const [resultats, setResultats] = useState([]);
   const supprimerProduit = async (ID) => {
     try {
-      await axios.delete(`http://localhost:4000/Produit/DeleteProduit/${ID}`);
+      await axios.delete(`http://localhost:4001/Produit/DeleteProduit/${ID}`);
       // Mettre à jour la liste des produits après la suppression
       const updatedProduits = produits.filter(produit => produit.ID !== ID);
       setProduits(updatedProduits);
@@ -18,7 +18,7 @@ const SuperAdminProduits = () => {
     }
   };
   useEffect(() => {
-    axios.get('http://localhost:4000/Produit/GetAllProduits')
+    axios.get('http://localhost:4001/Produit/GetAllProduits')
       .then(response => {
         setProduits(response.data);
       })
@@ -29,7 +29,7 @@ const SuperAdminProduits = () => {
 
   const handleRecherche = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/Produit/GetProduitByNom/${NomProduit}`);
+      const response = await axios.get(`http://localhost:4001/Produit/GetProduitByNom/${NomProduit}`);
       if (response.data.length === 0) {
         alert('Produit introuvable.');
       } else {

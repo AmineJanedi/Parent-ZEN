@@ -6,10 +6,12 @@ import Sidebar from './components/Dashboard/Sidebar'
 import Home from './components/Dashboard/Home'
 import SuperAdminProduits from'./components/SuperAdminProduits'
 import AjouterProduit from './components/AjouterProduit';
-import Allergies from'./components/Allergies'
 import Commandes from'./components/Commandes'
 import DemandeBuvette from'./components/DemandeBuvette'
 import ModifierProduit from'./components/ModifierProduit'
+import ListeAllergies from './components/Allergie/ListeAllergie';
+import AjouterAllergie from './components/Allergie/AjouterAllergie';
+import ModifierAllergie from './components/Allergie/ModifierAllergie';
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -26,11 +28,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/SuperAdminProduits" element={<SuperAdminProduits />} />
-        <Route path="/Allergies" element={<Allergies />} />
         <Route path="/Commandes" element={<Commandes />} />
         <Route path="/DemandeBuvette" element={<DemandeBuvette />} />
         <Route path="/AjouterProduit" element={<AjouterProduit />} />
         <Route path="/ModifierProduit" element={<ModifierProduit />} />
+        <Route path="/ListeAllergies" element={<ListeAllergies />} />
+        <Route path="/AjouterAllergie" element={<AjouterAllergie />} />
+        <Route path="/ModifierAllergie" element={<ModifierAllergie />} />
 
 
 

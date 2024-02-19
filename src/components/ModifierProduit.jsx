@@ -19,7 +19,7 @@ const ModifierProduit = () => {
   const ModifierProduit =async  (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:4000/Produit/ModifierProduit/${ID}`, {
+      const response = await axios.put(`http://localhost:4001/Produit/ModifierProduit/${ID}`, {
           ID:ID,
           CodeABarre:CodeABarre,
           NomProduit:NomProduit,
@@ -66,10 +66,10 @@ const ModifierProduit = () => {
               {/*Target blank pour que le lien s'ouvre que dans une nouvelle page et noopener Cela 
               protège contre les attaques de phishing où une nouvelle fenêtre pourrait être utilisée pour rediriger l'utilisateur
                vers une page malveillante tout en conservant la page d'origine ouverte en arrière-plan */} 
-              <a href="https://fr.openfoodfacts.org/data" target="_blank" rel="noopener noreferrer" className="Lien">
-                <div className="Lien">
-              Voir OpenFoodFacts</div>
-               </a>
+              <a href={`https://fr.openfoodfacts.org/cgi/search.pl?search_terms=${NomProduit}&search_simple=1&action=process`} target="_blank" rel="noopener noreferrer" className="Lien">
+    <div className="Lien">
+        Voir OpenFoodFacts
+    </div></a>
               <textarea id="Ingredient" required="" value={Ingredients} onChange={(e) => setIngredient(e.target.value)} />
             </div>
             <div>
