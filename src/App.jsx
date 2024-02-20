@@ -31,10 +31,10 @@ function App() {
         <Route path="/Commandes" element={<Commandes />} />
         <Route path="/DemandeBuvette" element={<DemandeBuvette />} />
         <Route path="/AjouterProduit" element={<AjouterProduit />} />
-        <Route path="/ModifierProduit" element={<ModifierProduit />} />
+        <Route path="/ModifierProduit/:ID" element={<ModifierProduit />} />
         <Route path="/ListeAllergies" element={<ListeAllergies />} />
         <Route path="/AjouterAllergie" element={<AjouterAllergie />} />
-        <Route path="/ModifierAllergie" element={<ModifierAllergie />} />
+        <Route path="/ModifierAllergie/:ID" element={<ModifierAllergie />} />
 
 
 

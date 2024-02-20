@@ -91,5 +91,19 @@ router.delete('/DeleteProduit/:ID', (req, res) => {
             res.status(400).send(err)
         });
 });
-
+//DetailProduit***************************************************************************************
+router.get('/DetailsProduit/:ID', (req, res) => {
+    const produitID = req.params.ID;
+    Produits.findOne({ ID: produitID })
+        .then((produit) => {
+            if (produit) {
+                res.send(produit);
+            } else {
+                res.status(404).send("Aucun produit trouvé avec cet ID.");
+            }
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
+});
 module.exports=router;

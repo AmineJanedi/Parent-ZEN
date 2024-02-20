@@ -90,5 +90,23 @@ router.delete('/DeleteAllergie/:ID', (req, res) => {
             res.status(400).send(err)
         });
 });
+//Extraire tous les nom d'allergies****************************************************************************
+router.get('/NomAllergies', async (req, res) => {
+    try {
+        // Fetch all records from the Allergies collection
+        const allergies = await Allergies.find({}, 'NomAllergie');
+        
+        // Transform fetched data into the desired format
+        const listeAllergies = allergies.map(allergie => ({ NomAllergie: allergie.NomAllergie }));
+        
+        // Send the formatted data as a response
+        res.json(listeAllergies);
+    } catch (error) {
+        // If an error occurs, send an error response
+        console.error('Error fetching NomAllergie:', error);
+        res.status(500).json({ error: 'Error fetching NomAllergie' });
+    }
+});
+
 
 module.exports=router;
