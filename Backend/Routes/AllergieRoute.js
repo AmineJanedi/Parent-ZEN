@@ -9,6 +9,9 @@ router.post('/AjouterAllergie',async (req,res)=>{
     try {
         const savedAllergie = await Allergies.create(req.body)
         res.status(200).json(savedAllergie)
+        if (nombreAllergies>=0) {
+            nombreAllergies=nombreAllergies+1; 
+        }
     } catch(err) {
         console.log(err);
     }
@@ -81,6 +84,9 @@ router.delete('/DeleteAllergie/:ID', (req, res) => {
         .then((deletedAllergie) => {
             if (deletedAllergie) {
                 res.status(200).send(deletedAllergie);
+                if (nombreAllergies>0) {
+                    nombreAllergies=nombreAllergies-1; 
+                }
             } else {
                 res.status(404).send("Aucun Allergie trouvé avec cet ID.");
             }
@@ -107,6 +113,40 @@ router.get('/NomAllergies', async (req, res) => {
         res.status(500).json({ error: 'Error fetching NomAllergie' });
     }
 });
-
+//Detail Allergie*********************************************************************************************************
+router.get('/DetailsAllergie/:ID', (req, res) => {
+    const AllergieID = req.params.ID;
+    Allergies.findOne({ ID: AllergieID })
+        .then((Allergie) => {
+            if (Allergie) {
+                res.send(Allergie);
+            } else {
+                res.status(404).send("Aucun Allergie trouvé avec cet ID.");
+            }
+        })
+        .catch((err) => {
+            res.status(400).send(err);
+        });
+  });
+//Vérifier ID Allergie********************************************************************************************
+router.get('/VerifierID/:ID', (req, res) => {
+    const AllergieID = req.params.ID;
+    // Recherchez dans la base de données si un Allergie avec cet ID existe déjà
+    Allergies.findOne({ ID: AllergieID })
+        .then((Allergie) => {
+            if (Allergie) {
+                // Si un Allergie avec cet ID existe déjà, renvoyez true
+                res.json(true);
+            } else {
+                // Si aucun Allergie avec cet ID n'existe, renvoyez false
+                res.json(false);
+            }
+        })
+        .catch((err) => {
+            // En cas d'erreur, renvoyez un code d'erreur
+            console.error('Erreur lors de la vérification de l\'ID du Allergie :', err);
+            res.status(500).send('Une erreur s\'est Allergiee lors de la vérification de l\'ID du Allergie.');
+        });
+});
 
 module.exports=router;

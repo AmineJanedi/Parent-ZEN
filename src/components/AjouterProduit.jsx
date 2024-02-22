@@ -14,6 +14,12 @@ const AjouterProduit = () => {
     const AjouterProduit = async (e) => {
       e.preventDefault();
       try {
+         const idExistant = await axios.get(`http://localhost:4001/Produit/VerifierID/${ID}`);
+        if (idExistant.data) {
+            // Si l'ID est déjà utilisé, afficher une alerte
+            alert("L'ID est déjà utilisé par un autre produit.");
+            return;
+        }
           const response = await axios.post('http://localhost:4001/Produit/AjouterProduit', {
               ID: ID,
               CodeABarre: CodeABarre,

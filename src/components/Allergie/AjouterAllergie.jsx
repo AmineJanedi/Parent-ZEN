@@ -7,28 +7,33 @@ const AjouterAllergie = () => {
     const [IngredientAllergeneenes, setIngredientAllergeneenes] = useState('');
    
 
-    const AjouterAllergie =async (e) => {
+    const AjouterAllergie = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('http://localhost:4001/Allergie/AjouterAllergie', {
-            ID:ID,
-            NomAllergie:NomAllergie,
-            IngredientAllergeneenes:IngredientAllergeneenes
-
-            
-        });
-        console.log('Allergie ajouté :', response);
-        alert('Allergie ajouté avec succés !')
-        // Réinitialiser les champs après l'ajout
-        setID('');
-        setNomAllergie('');
-        setIngredientAllergeneenes('')
+         const idExistant = await axios.get(`http://localhost:4001/Allergie/VerifierID/${ID}`);
+        if (idExistant.data) {
+            // Si l'ID est déjà utilisé, afficher une alerte
+            alert("L'ID est déjà utilisé par un autre Allergie.");
+            return;
+        }
+          const response = await axios.post('http://localhost:4001/Allergie/AjouterAllergie', {
+              ID: ID,
+              NomAllergie: NomAllergie,
+              IngredientAllergeneenes: IngredientAllergeneenes,
+    
+          });
+          console.log('Allergie ajouté :', response);
+          alert('Allergie ajouté avec succés !')
+          // Réinitialiser les champs après l'ajout
+          setID('');
+          setNomAllergie('');
+          setIngredientAllergeneenes('');
         
-    } catch (error) {
-        console.error('Erreur lors de l\'ajout du Allergie :', error);
-    }
-   
-    };
+      } catch (error) {
+          console.error('Erreur lors de l\'ajout du Allergie :', error);
+      }
+  };
+  
   
     return (
       <div>

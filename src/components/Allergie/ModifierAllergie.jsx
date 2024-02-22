@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect} from 'react';
 import axios from 'axios';
+import { useParams, } from 'react-router-dom';
+
 const ModifierAllergie = () => {
-    const [ID, setID] = useState('');
     const [NomAllergie, setNomAllergie] = useState('');
     const [IngredientAllergeneenes, setIngredientAllergeneenes] = useState('');
-   
+    const [Allergie, setAllergie] = useState({
+      NomAllergie: '',
+      IngredientAllergeneenes: '',
+  });
 
+  const { ID } = useParams(); // Extraire l'ID de l'URL
+  useEffect(() => {
+    axios.get(`http://localhost:4001/Produit/DetailsProduit/${ID}`)
+        .then(response => {
+            setProduit(response.data);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération du produit :', error);
+        });
+}, [ID]);
     const ModifierAllergie =async (e) => {
       e.preventDefault();
       try {
@@ -14,8 +28,8 @@ const ModifierAllergie = () => {
             NomAllergie:NomAllergie,
             IngredientAllergeneenes:IngredientAllergeneenes
 
-            
-        });
+        }
+        );
         console.log('Allergie modifié :', response);
         alert('Allergie Modifié avec succés !')
         // Réinitialiser les champs après l'ajout
@@ -38,7 +52,7 @@ const ModifierAllergie = () => {
           <form>
             <div>
               <label htmlFor="ID">ID :</label>
-              <input type="text" required="" id="ID" value={ID} onChange={(e) => setID(e.target.value)} />
+              <input type="text" required="" id="ID" value={ID} readOnly />
             </div>
             <div>
               <label htmlFor="NomAllergie">Nom du Allergie :</label> 

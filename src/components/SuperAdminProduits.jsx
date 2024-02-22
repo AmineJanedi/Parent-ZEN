@@ -71,7 +71,7 @@ const SuperAdminProduits = () => {
                                     <td>{produit.ID}</td>
                                     <td>{produit.NomProduit}</td>
                                     <td className='Ingrédient'>{produit.Ingredients}</td>
-                                    <td style={{width:"10%"}}>{produit.Prix} DT</td>
+                                    <td style={{width:"15%"}}>{produit.Prix} DT</td>
                                     <td>
                                         <ul>
                                             {produit.Allérgenes.map((allergen, index) => (
@@ -95,7 +95,7 @@ const SuperAdminProduits = () => {
                                     <td>{produit.ID}</td>
                                     <td>{produit.NomProduit}</td>
                                     <td className='Ingrédient'>{produit.Ingredients}</td>
-                                    <td style={{width:"11%"}}>{produit.Prix} DT</td>
+                                    <td style={{width:"15%"}}>{produit.Prix} DT</td>
                                     <td>
                                         <ul>
                                             {produit.Allérgenes.map((allergen, index) => (

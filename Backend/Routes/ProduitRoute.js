@@ -4,16 +4,27 @@ const Produits=require('../Models/Produits');
 let nombreProduits = 0; // Nombre initial de produits
 
 //Ajouter Produit Avec une autre facon 'Await'***********************************************************************
-router.post('/AjouterProduit',async (req,res)=>{
-    console.log(req.body)
+router.post('/AjouterProduit', async (req, res) => {
     try {
-        const savedProduit = await Produits.create(req.body)
-        res.status(200).json(savedProduit)
-        nombreProduits++;
-    } catch(err) {
+        // Vérifier si l'ID est déjà utilisé
+        const existingProduit = await Produits.findOne({ ID: req.body.ID });
+        if (existingProduit) {
+            return res.status(400).json({ message: "L'ID est déjà utilisé par un autre produit." });
+        }
+
+        // Créer un nouveau produit s'il n'y a pas de conflit d'ID
+        const savedProduit = await Produits.create(req.body);
+        res.status(200).json(savedProduit);
+        if (nombreProduits>=0) {
+            nombreProduits++; 
+        }
+       
+    } catch (err) {
         console.log(err);
+        res.status(500).json({ message: "Une erreur s'est produite lors de l'ajout du produit." });
     }
-})
+});
+
 //getNombre produits*************************************************************************************************
 router.get('/nombreProduits', (req, res) => {
     res.status(200).json({ nombreProduits });
@@ -82,6 +93,9 @@ router.delete('/DeleteProduit/:ID', (req, res) => {
         .then((deletedProduit) => {
             if (deletedProduit) {
                 res.status(200).send(deletedProduit);
+                if (nombreProduits>0) {
+                    nombreProduits=nombreProduits-1; 
+                }
             } else {
                 res.status(404).send("Aucun produit trouvé avec cet ID.");
             }
@@ -106,4 +120,25 @@ router.get('/DetailsProduit/:ID', (req, res) => {
             res.status(400).send(err);
         });
 });
+//Vérifier ID produit********************************************************************************************
+router.get('/VerifierID/:ID', (req, res) => {
+    const produitID = req.params.ID;
+    // Recherchez dans la base de données si un produit avec cet ID existe déjà
+    Produits.findOne({ ID: produitID })
+        .then((produit) => {
+            if (produit) {
+                // Si un produit avec cet ID existe déjà, renvoyez true
+                res.json(true);
+            } else {
+                // Si aucun produit avec cet ID n'existe, renvoyez false
+                res.json(false);
+            }
+        })
+        .catch((err) => {
+            // En cas d'erreur, renvoyez un code d'erreur
+            console.error('Erreur lors de la vérification de l\'ID du produit :', err);
+            res.status(500).send('Une erreur s\'est produite lors de la vérification de l\'ID du produit.');
+        });
+});
+
 module.exports=router;

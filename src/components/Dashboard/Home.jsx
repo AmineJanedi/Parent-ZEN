@@ -49,9 +49,11 @@ function Home() {
           amt: 50,
         },
       ];
-        const [nombreProduits, setNombreProduits] = useState(0);
+        const [nombreProduits, setNombreProduits] = useState();
+        const [nombreAllergies, setnombreAllergies] = useState();
+
         useEffect(() => {
-          axios.get('http://localhost:4000/nombreProduits')
+          axios.get('http://localhost:4001/Produit/nombreProduits')
             .then(response => {
               setNombreProduits(response.data.nombreProduits);
             })
@@ -59,7 +61,15 @@ function Home() {
               console.error('Erreur lors de la récupération du nombre de produits :', error);
             });
         }, []);
-
+        useEffect(() => {
+          axios.get('http://localhost:4001/Allergie/nombreAllergies')
+            .then(response => {
+              setnombreAllergies(response.data.nombreAllergies);
+            })
+            .catch(error => {
+              console.error('Erreur lors de la récupération du nombre de produits :', error);
+            });
+        }, []);
   return (
     <main className='main-container'>
         <div className='main-title'>
@@ -79,7 +89,7 @@ function Home() {
                     <h3>ALLERGIES</h3>
                     <i className="fa-solid fa-hospital-user"style={{ fontSize: '36px' }} > </i>         
                       </div>
-                <h1>12</h1>
+                <h1>{nombreAllergies}</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>

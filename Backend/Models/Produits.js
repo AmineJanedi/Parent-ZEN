@@ -2,7 +2,7 @@ const mongoose =require ('mongoose');
 
 const Produits = mongoose.model('Produits',{
     ID :{
-        type:String
+        type:Number
     },
     CodeABarre :{
         type:Number
@@ -14,7 +14,7 @@ const Produits = mongoose.model('Produits',{
         type:String
     },
     Prix :{
-        type:Number
+        type:String
     },
     Allérgenes :{
         type:Array

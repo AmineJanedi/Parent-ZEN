@@ -33,7 +33,6 @@ const ModifierPorduit = () => {
           console.log('Produit modifié :', response);
           alert('Produit Modifié avec succés !')
           // Réinitialiser les champs après l'ajout
-          setID('');
           setCodeABarre('');
           setNomProduit('');
           setIngredient('');
@@ -125,7 +124,7 @@ const ModifierPorduit = () => {
                
               </Select>
             </div>
-            <button style={{ fontSize: '25px' }} onClick={ModifierUnPorduit}>Modifier <i className="fa-solid fa-plus"></i></button>
+            <button style={{ fontSize: '25px' }} onClick={ModifierUnPorduit}>Modifier <i className="fa-solid fa-gear"></i></button>
           </form>
         </div>
       </div>
