@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Dashboard/Header'
 import Sidebar from './components/Dashboard/Sidebar'
 import Home from './components/Dashboard/Home'
-import SuperAdminProduits from'./components/SuperAdminProduits'
-import AjouterProduit from './components/AjouterProduit';
-import Commandes from'./components/Commandes'
-import DemandeBuvette from'./components/DemandeBuvette'
-import ModifierProduit from'./components/ModifierProduit'
+import SuperAdminProduits from'./components/Produits/SuperAdminProduits'
+import AjouterProduit from './components/Produits/AjouterProduit';
+import Commandes from'./components/Produits/Commandes'
+import DemandeBuvette from'./components/Produits/DemandeBuvette'
+import ModifierProduit from'./components/Produits/ModifierProduit'
 import ListeAllergies from './components/Allergie/ListeAllergie';
 import AjouterAllergie from './components/Allergie/AjouterAllergie';
 import ModifierAllergie from './components/Allergie/ModifierAllergie';
