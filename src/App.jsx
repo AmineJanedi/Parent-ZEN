@@ -6,8 +6,8 @@ import Sidebar from './components/Dashboard/Sidebar'
 import Home from './components/Dashboard/Home'
 import SuperAdminProduits from'./components/Produits/SuperAdminProduits'
 import AjouterProduit from './components/Produits/AjouterProduit';
-import Commandes from'./components/Produits/Commandes'
-import DemandeBuvette from'./components/Produits/DemandeBuvette'
+import Commandes from'./components/Commande/Commandes'
+import DemandeBuvette from'./components/Demande_Buvette/DemandeBuvette'
 import ModifierProduit from'./components/Produits/ModifierProduit'
 import ListeAllergies from './components/Allergie/ListeAllergie';
 import AjouterAllergie from './components/Allergie/AjouterAllergie';
