@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const Produits=require('../Models/Produits');
-let nombreProduits = 0; // Nombre initial de produits
+
 
 //Ajouter Produit Avec une autre facon 'Await'***********************************************************************
 router.post('/AjouterProduit', async (req, res) => {
@@ -15,10 +15,8 @@ router.post('/AjouterProduit', async (req, res) => {
         // Créer un nouveau produit s'il n'y a pas de conflit d'ID
         const savedProduit = await Produits.create(req.body);
         res.status(200).json(savedProduit);
-        if (nombreProduits>=0) {
-            nombreProduits++; 
-        }
-       
+        let nombreProduits =await Produits.updateOne({}, { $inc: { NbProduit: 1 } });
+
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Une erreur s'est produite lors de l'ajout du produit." });
@@ -26,9 +24,17 @@ router.post('/AjouterProduit', async (req, res) => {
 });
 
 //getNombre produits*************************************************************************************************
-router.get('/nombreProduits', (req, res) => {
-    res.status(200).json({ nombreProduits });
+router.get('/nombreProduits', async (req, res) => {
+    try {
+        // Récupérer le nombre total de produits depuis la base de données
+        const produitsCount = await Produits.countDocuments();
+        res.status(200).json({ nombreProduits: produitsCount });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Une erreur s'est produite lors de la récupération du nombre total de produits." });
+    }
 });
+
 //Afficher tout les Produits *********************************************************************
 router.get('/GetAllProduits',(req,res)=>{
 Produits.find()
@@ -93,9 +99,8 @@ router.delete('/DeleteProduit/:ID', (req, res) => {
         .then((deletedProduit) => {
             if (deletedProduit) {
                 res.status(200).send(deletedProduit);
-                if (nombreProduits>0) {
-                    nombreProduits=nombreProduits-1; 
-                }
+                let nombreProduits = Produits.updateOne({}, { $inc: { NbProduit: -1 } });
+
             } else {
                 res.status(404).send("Aucun produit trouvé avec cet ID.");
             }
@@ -138,6 +143,8 @@ router.get('/VerifierID/:ID', (req, res) => {
             // En cas d'erreur, renvoyez un code d'erreur
             console.error('Erreur lors de la vérification de l\'ID du produit :', err);
             res.status(500).send('Une erreur s\'est produite lors de la vérification de l\'ID du produit.');
+            res.status(404).send('Entrer ID');
+
         });
 });
 

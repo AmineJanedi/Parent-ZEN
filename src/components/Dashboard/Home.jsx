@@ -79,7 +79,7 @@ function Home() {
         <div className='main-cards'>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>PRODUCTS</h3>
+                    <h3>PRODUITS</h3>
                     <i className='fa-solid fa-cart-shopping'style={{ fontSize: '36px' }}></i>
                 </div>
                 <h1>{nombreProduits}</h1>

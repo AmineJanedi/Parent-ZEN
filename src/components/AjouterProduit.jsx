@@ -18,7 +18,7 @@ const AjouterProduit = () => {
         if (idExistant.data) {
             // Si l'ID est déjà utilisé, afficher une alerte
             alert("L'ID est déjà utilisé par un autre produit.");
-            return;
+            return ;
         }
           const response = await axios.post('http://localhost:4001/Produit/AjouterProduit', {
               ID: ID,
@@ -68,7 +68,7 @@ const AjouterProduit = () => {
           <form>
             <div>
               <label htmlFor="ID">ID :</label>
-              <input type="text" required="" id="ID" value={ID} onChange={(e) => setID(e.target.value)} />
+              <input type="text" required id="ID" value={ID} onChange={(e) => setID(e.target.value)} />
             </div>
             <div>
               <label htmlFor="CodeABarre">CodeABarre :</label>
@@ -84,7 +84,7 @@ const AjouterProduit = () => {
               {/*Target blank pour que le lien s'ouvre que dans une nouvelle page et noopener Cela 
               protège contre les attaques de phishing où une nouvelle fenêtre pourrait être utilisée pour rediriger l'utilisateur
                vers une page malveillante tout en conservant la page d'origine ouverte en arrière-plan */} 
-           <a href={`https://fr.openfoodfacts.org/cgi/search.pl?search_terms=${NomProduit}&search_simple=1&action=process`} target="_blank" rel="noopener noreferrer" className="Lien">
+           <a href={`https://tn-en.openfoodfacts.org/cgi/search.pl?search_terms=${NomProduit}&search_simple=1&action=process`} target="_blank" rel="noopener noreferrer" className="Lien">
     <div className="Lien">
         Voir OpenFoodFacts
     </div>

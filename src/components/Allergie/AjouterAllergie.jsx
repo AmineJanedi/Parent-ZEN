@@ -56,7 +56,7 @@ const AjouterAllergie = () => {
               <input type="text" required="" id="IngredientAllergeneenes" value={IngredientAllergeneenes} onChange={(e) => setIngredientAllergeneenes(e.target.value)} />
             </div>
           
-            <button style={{ fontSize: '25px' }} onClick={AjouterAllergie}>Ajouter <i className="fa-solid fa-plus"></i></button>
+            <button style={{ fontSize: '25px',height:55 }} onClick={AjouterAllergie}>Ajouter <i className="fa-solid fa-plus"></i></button>
           </form>
         </div>
       </div>

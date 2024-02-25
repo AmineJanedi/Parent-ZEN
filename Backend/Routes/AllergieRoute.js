@@ -9,17 +9,24 @@ router.post('/AjouterAllergie',async (req,res)=>{
     try {
         const savedAllergie = await Allergies.create(req.body)
         res.status(200).json(savedAllergie)
-        if (nombreAllergies>=0) {
-            nombreAllergies=nombreAllergies+1; 
-        }
+               let nombreAllergies =await Allergies.updateOne({}, { $inc: { NbAllergie: 1 } });
+
     } catch(err) {
         console.log(err);
     }
 })
 //getNombre Allergies*************************************************************************************************
-router.get('/nombreAllergies', (req, res) => {
-    res.status(200).json({ nombreAllergies });
+router.get('/nombreAllergies', async (req, res) => {
+    try {
+        // Récupérer le nombre total de Allergies depuis la base de données
+        const AllergiesCount = await Allergies.countDocuments();
+        res.status(200).json({ nombreAllergies: AllergiesCount });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Une erreur s'est Allergiee lors de la récupération du nombre total de Allergies." });
+    }
 });
+
 //Afficher tout les Allergies *********************************************************************
 router.get('/GetAllAllergies',(req,res)=>{
 Allergies.find()
@@ -84,9 +91,8 @@ router.delete('/DeleteAllergie/:ID', (req, res) => {
         .then((deletedAllergie) => {
             if (deletedAllergie) {
                 res.status(200).send(deletedAllergie);
-                if (nombreAllergies>0) {
-                    nombreAllergies=nombreAllergies-1; 
-                }
+                let nombreAllergies = Allergies.updateOne({}, { $inc: { NbAllergie: -1 } });
+
             } else {
                 res.status(404).send("Aucun Allergie trouvé avec cet ID.");
             }
@@ -140,12 +146,14 @@ router.get('/VerifierID/:ID', (req, res) => {
             } else {
                 // Si aucun Allergie avec cet ID n'existe, renvoyez false
                 res.json(false);
+
             }
         })
         .catch((err) => {
             // En cas d'erreur, renvoyez un code d'erreur
             console.error('Erreur lors de la vérification de l\'ID du Allergie :', err);
             res.status(500).send('Une erreur s\'est Allergiee lors de la vérification de l\'ID du Allergie.');
+
         });
 });
 
