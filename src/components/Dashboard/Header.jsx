@@ -16,7 +16,8 @@ function Header({OpenSidebar}) {
        
         <div className='header-right'>
         <>
-  <BsFillBellFill className='icon' onClick={handleShow} />
+        <a href='../DemandeProduit' style={{color:'white'}}>
+  <BsFillBellFill className='icon' onClick={handleShow} />Liste des Demande d'ajouter Produit </a>
   <Modal show={showModal} onHide={handleClose} style={{ position: 'absolute', top: 'calc(100% +1500px)', right: 650, backgroundColor: 'white', padding: '100px', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',width:"30%" }}>
     <Modal.Body>
       <button  onClick={handleClose} style={{ width: "25%",right:250, top: 'calc(100% +150px)'}}>Fermer</button>
@@ -27,7 +28,7 @@ function Header({OpenSidebar}) {
 </>
 
 
-            <BsFillEnvelopeFill className='icon'/>
+            <BsFillEnvelopeFill className='icon' style={{marginLeft:55}}/> Liste des demande d'ajouter Allergie
         </div>
     </header>
   )

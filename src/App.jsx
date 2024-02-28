@@ -12,6 +12,7 @@ import ModifierProduit from'./components/Produits/ModifierProduit'
 import ListeAllergies from './components/Allergie/ListeAllergie';
 import AjouterAllergie from './components/Allergie/AjouterAllergie';
 import ModifierAllergie from './components/Allergie/ModifierAllergie';
+import DemandeProduit from './components/Demandes/DemandeProduit';
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/ListeAllergies" element={<ListeAllergies />} />
         <Route path="/AjouterAllergie" element={<AjouterAllergie />} />
         <Route path="/ModifierAllergie/:ID" element={<ModifierAllergie />} />
+        <Route path="/DemandeProduit" element={<DemandeProduit />} />
 
 
 
