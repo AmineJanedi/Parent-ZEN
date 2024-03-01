@@ -50,15 +50,26 @@ Produits.find()
 })
 //Chercher Produit Par Nom*********************************************************************
 router.get('/GetProduitByNom/:NomProduit', (req, res) => {
-    ProduitNom = req.params.NomProduit;
-    Produits.find({ NomProduit: ProduitNom })
+    const { NomProduit } = req.params;
+
+    Produits.find({ NomProduit: { $regex: new RegExp(NomProduit, 'i') } })
         .then((produits) => {
-            res.status(200).send(produits);
+            if (produits.length === 0) {
+                Produits.find()
+                    .then((allProduits) => {
+                        res.status(200).send(allProduits);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).send("Une erreur s'est produite lors de la récupération des produits.");
+                    });
+            } else {
+                res.status(200).send(produits);
+            }
         })
-        .catch (
-            (err)=>{
-            res.status(404).send(err)
-            
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send("Une erreur s'est produite lors de la récupération des produits.");
         });
 });
 //Chercher Produit Par ID***************************************************************************

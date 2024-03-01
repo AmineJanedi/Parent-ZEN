@@ -42,17 +42,29 @@ Allergies.find()
 })
 //Chercher Allergie Par Nom*********************************************************************
 router.get('/GetAllergieByNom/:NomAllergie', (req, res) => {
-    AllergieNom = req.params.NomAllergie;
-    Allergies.find({ NomAllergie: AllergieNom })
+    const { NomAllergie } = req.params;
+
+    Allergies.find({ NomAllergie: { $regex: new RegExp(NomAllergie, 'i') } })
         .then((Allergies) => {
-            res.status(200).send(Allergies);
+            if (Allergies.length === 0) {
+                Allergies.find()
+                    .then((allAllergies) => {
+                        res.status(200).send(allAllergies);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        res.status(500).send("Une erreur s'est Allergiee lors de la récupération des Allergies.");
+                    });
+            } else {
+                res.status(200).send(Allergies);
+            }
         })
-        .catch (
-            (err)=>{
-            res.status(404).send(err)
-            
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send("Une erreur s'est Allergiee lors de la récupération des Allergies.");
         });
 });
+
 //Chercher Allergie Par ID***************************************************************************
 router.get('/GetAllergieByID/:ID', (req, res) => {
     const AllergieID = req.params.ID;

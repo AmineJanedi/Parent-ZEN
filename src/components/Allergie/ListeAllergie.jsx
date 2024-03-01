@@ -28,17 +28,22 @@ const ListeAllergies = () => {
       });
   }, []);
 
-  const handleRecherche = async () => {
-    try {
-      const response = await axios.get(`http://localhost:4001/Allergie/GetAllergieByNom/${NomAllergie}`);
-      if (response.data.length === 0) {
-        alert('Allergie introuvable.');
-      } else {
-        setResultats(response.data);
-      }
-    } catch (error) {
-      alert('Insérer le nom de Allergie !');
-      console.error('Erreur lors de la recherche du Allergie :', error);
+  const handleChange = async (e) => {
+    const { value } = e.target;
+    setNomAllergie(value);
+
+    // Vérifier si le champ de recherche est vide
+    if (value === '') {
+        // Si le champ est vide, afficher tous les Allergies
+        setResultats(Allergies);
+    } else {
+        try {
+            // Sinon, effectuer la recherche comme d'habitude
+            const response = await axios.get(`http://localhost:4001/Allergie/GetAllergieByNom/${value}`);
+            setResultats(response.data);
+        } catch (error) {
+            console.error('Erreur lors de la recherche du Allergie :', error);
+        }
     }
 };
 
@@ -46,8 +51,7 @@ const ListeAllergies = () => {
     <div className='main-container'>
       <h1 className='titre'>Liste des Allergies</h1>
       <div className='header-left' style={{ display: 'flex', alignItems: 'center' }}>
-        <input type="text" placeholder="Rechercher Allergie par nom" className="search-input" value={NomAllergie} onChange={(e) => setNomAllergie(e.target.value)} />
-        <button className="fa-solid fa-magnifying-glass" style={{ position: 'inherit', fontSize: '19px', width: '19%' }} onClick={handleRecherche}></button>
+        <input type="text" placeholder="Rechercher Allergie par nom" className="search-input" value={NomAllergie} onChange={handleChange} />
       </div>
 
       <div className='table-container'>
